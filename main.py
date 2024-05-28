@@ -1,11 +1,14 @@
 from flask import Flask, request
 from auth import ServiceAccountAuth
+import os
 
 app = Flask(__name__)
 
 @app.route('/token')
 def get_token():
-    file = request.args.get('file')
+    # current working directory
+    cwd = os.getcwd()
+    file = cwd + '/mysite/' + request.args.get('file')
     scope = request.args.get('scope')
     auth_instance = ServiceAccountAuth(file, scope)
     return auth_instance.token_data["token"]
