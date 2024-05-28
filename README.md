@@ -1,5 +1,7 @@
-# Useful script to pair with an automation, for example
-Because access tokens expire, there is a need for a script that fetches new access tokens if needed
+# Useful script to get an access token
+Because access tokens expire, there is a need for a script that fetches new access tokens if needed.
+The token information is persisted in a file, improving performance (we save one Google auth fetch token request and cut request time from 500ms to about 10ms).
+The token expiry is used to determine if a new token needs to be fetched.
 
 # Request
 The request parameters are:
