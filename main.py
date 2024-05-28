@@ -8,7 +8,7 @@ app = Flask(__name__)
 def get_token():
     # current working directory
     cwd = os.getcwd()
-    file = cwd + '/mysite/' + request.args.get('file')
+    file = cwd + os.path.sep + request.args.get('file')
     scope = request.args.get('scope')
     auth_instance = ServiceAccountAuth(file, scope)
     return auth_instance.token_data["token"]
