@@ -19,6 +19,7 @@ from flask import json
 import google.auth
 import google.auth.transport.requests
 from datetime import datetime
+import os
 
 from google.oauth2 import service_account
 
@@ -68,8 +69,12 @@ class ServiceAccountAuth:
         scoped_credentials.refresh(request)
         token_data = {"token": scoped_credentials.token, "expiry": scoped_credentials.expiry, "scope": self.scope, "json_credential_path": self.json_credential_path}
         
-        with open("token.json", "w") as file:
+        file_path = "token.json"
+        with open(file_path, "w") as file:
           json.dump(token_data, file)
+
+        # Set file permissions to be accessible only by the owner (read and write)
+        os.chmod(file_path, 0o600)
 
         return token_data
 
